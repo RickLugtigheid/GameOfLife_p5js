@@ -1,0 +1,5 @@
+.instructions{
+    float: right;
+    border: 2px, black;
+    border-style: double;
+}
