@@ -7,10 +7,12 @@ let RESOLUTION = 10;
 
 let generation = 0;
 let genDisplay;
+let clearBtn;
 
 function setup() {
     //generation display
     genDisplay = createP(0);
+    clearBtn = createButton('Clear Canvas');
 
     if(typeof getURLParams().resolution == 'string' && getURLParams().resolution < 100){ RESOLUTION = getURLParams().resolution; }
 
@@ -64,6 +66,13 @@ function draw() {
         generation++;
         genDisplay.html("Generation: "+generation);
     }
+
+    clearBtn.mousePressed(()=>{
+        generation = 0;
+        grid.loop((c, r)=>{
+            grid.grid[c][r] = 0;
+        });
+    });
 }
 
 function countNeighbors(grid = new Grid(), x = 0, y = 0){
@@ -121,9 +130,9 @@ class Grid{
         }
     }
     cellClicked(column, row){
-      var d = dist(mouseX / RESOLUTION, mouseY / RESOLUTION, column, row);
-      if(d < 1){
-            this.grid[column][row] = 1;
+        var d = dist(mouseX / RESOLUTION, mouseY / RESOLUTION, column, row);
+        if(d < 0.5){
+            this.grid[column][row] = 1;
         }
     }
 }
